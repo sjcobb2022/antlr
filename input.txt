@@ -1,0 +1,11 @@
+y := 1;
+z := 0;
+while x > 1 do
+  y := y * x;
+  x := x - 1
+od;
+if y > 100 then
+  z := 1
+else
+  skip
+fi
