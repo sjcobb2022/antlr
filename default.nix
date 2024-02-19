@@ -1,21 +1,21 @@
-{ stdenv, jdk, jre, antlr, makeWrapper, just }:
+{ stdenv, jdk, antlr, makeWrapper, just, ant }:
 
 stdenv.mkDerivation {
   name = "Antlr Build";
   src = ./.;
 
-  nativeBuildInputs = [ jdk antlr just makeWrapper jre ];
+  nativeBuildInputs = [ jdk ant antlr just makeWrapper ];
 
   buildPhase = ''
-    just build
+    antlr -o src Imp.g4 -visitor 
+    javac -d build src/*.java     
   '';
 
   installPhase = ''
     mkdir -p $out/bin
     cp -r build/* $out/bin
-    alias grun='java  -cp $out/bin'
-    makeWrapper ${jre}/bin/java org.antlr.v4.runtime.misc.TestRig \
-    --add-flags "-cp $out/bin"
+    
+    makeWrapper ${jdk}/bin/java org.antlr.v4.gui.TestRig \
   '';
 
 }
