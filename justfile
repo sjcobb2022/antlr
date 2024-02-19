@@ -9,5 +9,4 @@ visitor:
 	javac -d build src/*.java
 
 gui START_SYMBOL:
-	@echo "Running GUI..."
 	cd build; grun Imp {{ START_SYMBOL }} -gui < ../input.txt
